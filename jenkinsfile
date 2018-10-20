@@ -1,0 +1,34 @@
+pipeline {
+    
+    agent any
+
+    environment {
+        status="success"
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                //def result="test"
+                echo "Before : ${env.status}"
+                script {
+                    //env.status=sh(returnStdout: true, script:'/opt/helloWorld.sh') 
+                    //env.status = sh(returnStdout: true, script:'echo "helloWorld"').trim()
+                    sh '/opt/helloWorld.sh'
+                }
+                echo "After : ${env.status}"
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
